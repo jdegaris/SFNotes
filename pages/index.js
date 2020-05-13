@@ -6,7 +6,7 @@ import baseUrl from '../utils/baseUrl'
 
 const categories = [
   'Platform App Builder',
-  'Platform Developer',
+  'Platform Developer I',
   'Administrator'
 ]
 const videos = [

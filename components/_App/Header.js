@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
-import Router, { useRouter } from 'next/router'
+import { useRouter } from 'next/router'
 import { Grid, Typography, AppBar, Toolbar, Button, IconButton, Hidden, CssBaseline, Drawer, Divider, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core'
 
 
@@ -95,7 +95,10 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
         padding: theme.spacing(3),
     },
-
+    link: {
+        color: "#efefef",
+        textDecoration: "none"
+    }
 
 }));
 
@@ -168,11 +171,21 @@ function Header({ user }) {
                 <Divider />
                 <Grid container style={{ backgroundColor: "rgba(0, 60, 114, 1)", color: 'white', height: '100%' }}>
                     <List style={{ backgroundColor: "rgba(0, 60, 114, 1)", color: 'white', height: '100%' }}>
-                        {['FlashCards', 'Videos', 'Add Question', 'Add Video'].map((text, index) => {
-                            const icons = [<LibraryBooksIcon />, <VideoLibraryIcon />, <ContactSupportIcon />, <VideoCallIcon />]
+                        {[
+                            <Link href="/flashcards" passHref><a className={classes.link}>FlashCards</a></Link>,
+                            <Link href="/videos" passHref><a className={classes.link}>Videos</a></Link>,
+                            <Link href="/addFlashcard" passHref><a className={classes.link}>Add Question</a></Link>,
+                            <Link href="/addVideo" passHref><a className={classes.link}>Add Video</a></Link>
+                        ].map((text, index) => {
+                            const icons = [
+                                <Link href="/flashcards"><LibraryBooksIcon /></Link>,
+                                <Link href="/videos"><VideoLibraryIcon /></Link>,
+                                <Link href="/addFlashcard"><ContactSupportIcon /></Link>,
+                                <Link href="/addVideo"><VideoCallIcon /></Link>
+                            ]
                             return (
                                 (
-                                    <ListItem button key={text}>
+                                    <ListItem button key={index}>
                                         <ListItemIcon style={{ color: 'white' }}>
                                             {icons[index]}
                                         </ListItemIcon>

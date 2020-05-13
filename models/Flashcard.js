@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-const { String } = mongoose.Schema.Types
+const { ObjectId, String } = mongoose.Schema.Types
 
 const FlashcardSchema = new mongoose.Schema({
     user: {
@@ -9,16 +9,22 @@ const FlashcardSchema = new mongoose.Schema({
     },
     category: {
         type: String,
-        required: true
+        required: true,
+        enum: [
+            'Platform App Builder',
+            'Platform Developer I',
+            'Administrator'
+        ]
     },
     question: {
         type: String,
         required: true
     },
     answer: {
-        type: Number,
+        type: String,
         required: true
     }
+
 })
 
-export default mongoose.models.Flashcard || mongoose.model('Flashcard', FlashcardSchema)
+export default mongoose.models.Flashcard || mongoose.model("Flashcard", FlashcardSchema)

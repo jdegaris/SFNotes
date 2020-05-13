@@ -25,9 +25,9 @@ class MyApp extends App {
         }
 
         if (!token) {
-            const isProtectedRoute = ctx.pathname === '/account' || ctx.pathname === '/publish'
+            const isProtectedRoute = ctx.pathname === '/addFlashcard' || ctx.pathname === '/addVideo'
             if (isProtectedRoute) {
-                redirectUser(ctx, '/signin')
+                redirectUser(ctx, '/login')
             }
         } else {
             try {
@@ -35,9 +35,8 @@ class MyApp extends App {
                 const url = `${baseUrl}/api/account`
                 const response = await axios.get(url, payload)
                 const user = response.data
-                const isAuthor = user.role === 'author'
                 // If user is authenticated but not an author, then redirect from 'create page
-                const isNotPermitted = !(isAuthor) && ctx.pathname === '/publish'
+                const isNotPermitted = !(user) && ctx.pathname === '/publish'
                 if (isNotPermitted) {
                     redirectUser(ctx, '/')
                 }
@@ -47,7 +46,7 @@ class MyApp extends App {
                 // Throw out invalid token
                 destroyCookie(ctx, 'token')
                 // Redirect to login page
-                redirectUser(ctx, '/signin')
+                redirectUser(ctx, '/login')
             }
         }
         return { pageProps }

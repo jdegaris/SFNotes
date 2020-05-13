@@ -7,6 +7,15 @@ const VideoSchema = new mongoose.Schema({
         type: ObjectId,
         ref: 'User'
     },
+    category: {
+        type: String,
+        required: true,
+        enum: [
+            'Platform App Builder',
+            'Platform Developer I',
+            'Administrator'
+        ]
+    },
     mediaUrl: {
         type: String,
         required: true
