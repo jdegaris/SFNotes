@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 // @material-ui/core components
-import { makeStyles, Grid, Card, FormControl, TextField, TextareaAutosize, Select, InputLabel, MenuItem, Button } from "@material-ui/core";
+import { makeStyles, Grid, Card, FormControl, TextField, FormHelperText, Select, InputLabel, MenuItem, Button } from "@material-ui/core";
 
 import axios from 'axios'
 import cookie from 'js-cookie'
@@ -24,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
 
 const INITIAL_VIDEO = {
     mediaUrl: '',
+    title: '',
     description: '',
     category: ''
 }
@@ -48,9 +49,9 @@ export default function addVideo() {
         try {
             setLoading(true)
             setErrorMsg('')
-            const url = `${baseUrl}/api/addVideo`
-            const { mediaUrl, description, category } = video
-            const payload = { mediaUrl, description, category }
+            const url = `${baseUrl}/api/video`
+            const { mediaUrl, title, description, category } = video
+            const payload = { mediaUrl, title, description, category }
             const token = cookie.get('token')
             const headers = { headers: { Authorization: token } }
             const newVideo = await axios.post(url, payload, headers)
@@ -74,6 +75,12 @@ export default function addVideo() {
                     <FormControl
                         fullWidth
                     >
+                        <FormHelperText>
+                            Enter the embed LINK only... do not include styling or options
+                        </FormHelperText>
+                        <FormHelperText>
+                            ( i.e. https://www.youtube.com/embed/sj1wOnelTNk )
+                        </FormHelperText>
                         <TextField
                             label="Embed URL link"
                             className={classes.dialogInput}
@@ -81,6 +88,16 @@ export default function addVideo() {
                             type="text"
                             name="mediaUrl"
                             value={video.mediaUrl}
+                            onChange={handleChange}
+                            required
+                        />
+                        <TextField
+                            label="Video Title"
+                            className={classes.dialogInput}
+                            aria-describedby="title"
+                            type="text"
+                            name="title"
+                            value={video.title}
                             onChange={handleChange}
                             required
                         />
@@ -101,8 +118,6 @@ export default function addVideo() {
                             style={{ margin: "1rem 0 0" }}
                             variant="outlined"
                             multiline
-                            required
-
                         />
                     </FormControl>
                     <br />
@@ -128,7 +143,7 @@ export default function addVideo() {
                         style={{ marginTop: "2rem" }}
                     >
                         Submit Video
-        </Button>
+                    </Button>
                 </form>
 
             </Card>

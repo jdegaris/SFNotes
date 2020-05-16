@@ -7,25 +7,13 @@ const VideoSchema = new mongoose.Schema({
         type: ObjectId,
         ref: 'User'
     },
-    category: {
-        type: String,
-        required: true,
-        enum: [
-            'Platform App Builder',
-            'Platform Developer I',
-            'Administrator'
-        ]
+    video: {
+        type: ObjectId,
+        ref: 'Video'
     },
-    mediaUrl: {
+    notes: {
         type: String,
         required: true
-    },
-    title: {
-        type: String,
-        required: true
-    },
-    description: {
-        type: String,
     }
 })
 

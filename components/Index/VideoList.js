@@ -19,34 +19,39 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function VideoList({ videos }) {
+function VideoList({ categories }) {
     const classes = useStyles();
     const router = useRouter()
 
     return (
         <Grid container justify="center">
-            {videos.map((video, index) => (
+            {categories.map((category, index) => (
                 <Grid item item xs={10} sm={6} md={4} key={index} >
-                    <Card raised className={classes.root} >
-                        <Grid
-                            container
-                            justify="center"
-                            alignItems="center"
-                            direction="column"
-                            style={{ height: 200, textAlign: "center", fontSize: "1.2rem" }}
-                        >
-                            <div fontSize="3rem" ></div>
-                            <div style={{ fontSize: "3rem", }}>
-                                <PersonalVideoIcon fontSize="inherit" />
-                            </div>
-                            {video}
-                        </Grid>
-                    </Card>
-
+                    <Grid
+                        container
+                        justify="space-around"
+                        alignItems="center"
+                    >
+                        <Card raised className={classes.root} onClick={() => router.push(`/videos?cat=${category}`)} style={{ cursor: "pointer" }}>
+                            <Grid container
+                                direction="column"
+                                justify="center"
+                                alignItems="center"
+                                style={{ height: 200, textAlign: "center", fontSize: "1.2rem" }}
+                            >
+                                <div fontSize="3rem" ></div>
+                                <div style={{ fontSize: "3rem", }}>
+                                    <PersonalVideoIcon fontSize="inherit" />
+                                </div>
+                                {category} Videos
+                            </Grid>
+                        </Card>
+                    </Grid>
                 </Grid>
             ))}
         </Grid>
     )
+
 }
 
 export default VideoList;

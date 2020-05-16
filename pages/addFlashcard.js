@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
 const INITIAL_FLASHCARD = {
     question: '',
     answer: '',
-    category: ''
+    category: 'Platform App Builder'
 }
 
 
@@ -47,13 +47,13 @@ export default function addFlashcard() {
         try {
             setLoading(true)
             setErrorMsg('')
-            const url = `${baseUrl}/api/addFlashcard`
+            const url = `${baseUrl}/api/flashcard`
             const { question, answer, category } = flashcard
             const payload = { question, answer, category }
+            console.log(payload);
             const token = cookie.get('token')
             const headers = { headers: { Authorization: token } }
             const newFlashcard = await axios.post(url, payload, headers)
-            router.push(`/flashcard?_id=${newFlashcard.data._id}`)
             setFlashcard(INITIAL_FLASHCARD)
             setSuccess(true)
         } catch (err) {
@@ -79,13 +79,16 @@ export default function addFlashcard() {
                             Please use 5 underscores ( _ ) to represent a blank space in the question
                         </FormHelperText>
                         <TextField
-                            label="Question"
+                            label="Question..."
                             className={classes.dialogInput}
-                            aria-describedby="question"
-                            type="text"
+                            rows={5}
+                            placeholder="Enter the question..."
                             name="question"
                             value={flashcard.question}
                             onChange={handleChange}
+                            style={{ margin: "1rem 0 0" }}
+                            variant="outlined"
+                            multiline
                             required
                         />
                     </FormControl>
@@ -94,16 +97,17 @@ export default function addFlashcard() {
                         fullWidth
                     >
                         <TextField
-                            label="Answer"
+                            label="Answer..."
                             className={classes.dialogInput}
-                            aria-describedby="answer"
-                            type="text"
+                            rows={5}
+                            placeholder="Enter the answer..."
                             name="answer"
                             value={flashcard.answer}
                             onChange={handleChange}
                             style={{ margin: "1rem 0 0" }}
+                            variant="outlined"
+                            multiline
                             required
-
                         />
                     </FormControl>
                     <br />

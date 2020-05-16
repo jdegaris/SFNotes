@@ -5,6 +5,7 @@ import CodeIcon from '@material-ui/icons/Code';
 import BuildIcon from '@material-ui/icons/Build';
 
 import { useRouter } from 'next/router'
+import baseUrl from '../../utils/baseUrl'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -18,9 +19,9 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function CategoryList({ categories }) {
+function CategoryList({ flashcards, categories }) {
     const classes = useStyles();
-    const router = useRouter()
+    const router = useRouter();
 
     const icons = [
         <BuildIcon fontSize='inherit' />,
@@ -28,26 +29,40 @@ function CategoryList({ categories }) {
         <SupervisedUserCircleIcon fontSize='inherit' />
     ]
     return (
-        <Grid container justify="space-around">
+        <Grid container justify="center">
             {categories.map((category, index) => (
                 <Grid item item xs={10} sm={6} md={4} key={index} >
-                    <Card raised className={classes.root} >
-                        <Grid
-                            container
-                            justify="center"
-                            alignItems="center"
-                            direction="column"
-                            style={{ height: 200, textAlign: "center", fontSize: "1.2rem" }}
-                        >
-                            <div style={{ fontSize: "3rem" }}>{icons[index]}</div>
-                            <div>{category} Flashcards</div>
-                        </Grid>
-                    </Card>
-
+                    <Grid
+                        container
+                        justify="space-around"
+                        alignItems="center"
+                    >
+                        <Card raised className={classes.root} onClick={() => router.push(`/flashcard?cat=${category}`)} style={{ cursor: "pointer" }}>
+                            <Grid container
+                                direction="column"
+                                justify="center"
+                                alignItems="center"
+                                style={{ height: 200, textAlign: "center", fontSize: "1.2rem" }}
+                            >
+                                <div style={{ fontSize: "3rem" }}>{icons[index]}</div>
+                                <div>{category} Flashcards</div>
+                            </Grid>
+                        </Card>
+                    </Grid>
                 </Grid>
             ))}
         </Grid>
     )
+}
+
+CategoryList.getInitialProps = async () => {
+    // fetch data
+    const url = `${baseUrl}/api/flashcards`
+    console.log(baseUrl);
+    const response = await axios.get(url)
+    // return response data as an object
+    return { flashcards: response.data }
+    // this object will be merged with existing groups
 }
 
 export default CategoryList;

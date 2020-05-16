@@ -32,6 +32,9 @@ const UserSchema = new mongoose.Schema({
             type: ObjectId,
             ref: 'Video'
         },
+        notes: {
+            type: String
+        }
     }],
     date: {
         type: Date,

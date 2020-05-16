@@ -11,14 +11,8 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import GroupIcon from '@material-ui/icons/Group';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import LaunchIcon from '@material-ui/icons/Launch';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
+import HomeIcon from '@material-ui/icons/Home';
 import VideoLibraryIcon from '@material-ui/icons/VideoLibrary';
-import CollectionsBookmarkIcon from '@material-ui/icons/CollectionsBookmark';
 import ContactSupportIcon from '@material-ui/icons/ContactSupport';
 import VideoCallIcon from '@material-ui/icons/VideoCall';
 
@@ -145,7 +139,7 @@ function Header({ user }) {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography variant="h6" noWrap>
+                    <Typography variant="h6" noWrap onClick={() => router.push('/')} style={{ cursor: "pointer" }}>
                         Salesforce Notes
           </Typography>
                 </Toolbar>
@@ -171,34 +165,45 @@ function Header({ user }) {
                 <Divider />
                 <Grid container style={{ backgroundColor: "rgba(0, 60, 114, 1)", color: 'white', height: '100%' }}>
                     <List style={{ backgroundColor: "rgba(0, 60, 114, 1)", color: 'white', height: '100%' }}>
-                        {[
-                            <Link href="/flashcards" passHref><a className={classes.link}>FlashCards</a></Link>,
-                            <Link href="/videos" passHref><a className={classes.link}>Videos</a></Link>,
-                            <Link href="/addFlashcard" passHref><a className={classes.link}>Add Question</a></Link>,
-                            <Link href="/addVideo" passHref><a className={classes.link}>Add Video</a></Link>
-                        ].map((text, index) => {
-                            const icons = [
-                                <Link href="/flashcards"><LibraryBooksIcon /></Link>,
-                                <Link href="/videos"><VideoLibraryIcon /></Link>,
-                                <Link href="/addFlashcard"><ContactSupportIcon /></Link>,
-                                <Link href="/addVideo"><VideoCallIcon /></Link>
-                            ]
-                            return (
-                                (
-                                    <ListItem button key={index}>
-                                        <ListItemIcon style={{ color: 'white' }}>
-                                            {icons[index]}
-                                        </ListItemIcon>
-                                        <ListItemText primary={text} />
-                                    </ListItem>
-                                )
-                            )
-                        })}
+
+
+
+                        < ListItem button>
+                            <ListItemIcon style={{ color: 'white' }}>
+                                <Link href="/"><HomeIcon /></Link>
+                            </ListItemIcon>
+                            <ListItemText>
+                                <Link href="/" passHref><a className={classes.link}>Home</a></Link>
+                            </ListItemText>
+                        </ListItem>
+
+                        {user && (
+                            <>
+                                <ListItem button>
+                                    <ListItemIcon style={{ color: 'white' }}>
+                                        <Link href="/addFlashcard"><ContactSupportIcon /></Link>
+                                    </ListItemIcon>
+                                    <ListItemText>
+                                        <Link href="/addFlashcard" passHref><a className={classes.link}>Add Flashcard</a></Link>
+                                    </ListItemText>
+                                </ListItem>
+
+                                <ListItem button>
+                                    <ListItemIcon style={{ color: 'white' }}>
+                                        <Link href="/addVideo"><VideoCallIcon /></Link>
+                                    </ListItemIcon>
+                                    <ListItemText>
+                                        <Link href="/addVideo" passHref><a className={classes.link}>Add Video</a></Link>
+                                    </ListItemText>
+                                </ListItem>
+                            </>
+                        )}
+
                     </List>
                 </Grid>
                 <Divider />
             </Drawer>
-        </div>
+        </div >
     )
 
 }
