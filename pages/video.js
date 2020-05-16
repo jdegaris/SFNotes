@@ -9,9 +9,7 @@ const useStyles = makeStyles((theme) => ({
     root: {
         marginTop: "1rem",
     },
-    icon: {
-        color: "red"
-    }
+
 }));
 
 const INITIAL_NOTE = {
@@ -21,8 +19,6 @@ const INITIAL_NOTE = {
 
 function Video({ user, video }) {
     const classes = useStyles();
-
-    console.log(video);
 
     const [note, setNote] = useState(INITIAL_NOTE)
     const [success, setSuccess] = useState(false)

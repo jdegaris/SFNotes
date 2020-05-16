@@ -43,40 +43,46 @@ function FlashcardPage({ flashcard, cat }) {
             <Grid container>
                 <Grid container justify="center">
                     <Grid item xs={10} md={6}>
-                        <Card
-                            className={classes.root}
-                        >
-                            <Grid container direction="column" justify="center" alignItems="center" style={{ padding: "2rem" }}>
-                                <Grid item>
-                                    {flashcard.question}
-                                </Grid>
-                                <Grid item>
-                                    <FormControlLabel
-                                        control={<Switch checked={checked} onChange={handleChange} />}
-                                        label="Show Answer"
-                                    />
-                                </Grid>
-                                <Slide direction="up" in={checked} mountOnEnter unmountOnExit>
-                                    <Paper elevation={4} className={classes.paper}>
-                                        <Grid container direction="column" alignItems="center">
-                                            <Grid item>
-                                                {flashcard.answer}
-                                            </Grid>
-                                            <Grid item>
-                                                <Button
-                                                    onClick={handleNewQuestion}
-                                                >
-                                                    Next Question
-                                                </Button>
-                                            </Grid>
+                        {!flashcard ? (
+                            <h1>No Flashcards Have Been Posted For This Certification</h1>
+                        ) : (
+                                <Card
+                                    className={classes.root}
+                                >
+                                    <Grid container direction="column" justify="center" alignItems="center" style={{ padding: "2rem" }}>
+                                        <Grid item>
+                                            {flashcard.question}
                                         </Grid>
+                                        <Grid item>
+                                            <FormControlLabel
+                                                control={<Switch checked={checked} onChange={handleChange} />}
+                                                label="Show Answer"
+                                            />
+                                        </Grid>
+                                        <Slide direction="up" in={checked} mountOnEnter unmountOnExit>
+                                            <Paper elevation={4} className={classes.paper}>
+                                                <Grid container direction="column" alignItems="center">
+                                                    <Grid item>
+                                                        {flashcard.answer}
+                                                    </Grid>
+                                                    <Grid item>
+                                                        <Button
+                                                            variant="contained"
+                                                            color="secondary"
+                                                            onClick={handleNewQuestion}
+                                                        >
+                                                            Next Question
+                                                </Button>
+                                                    </Grid>
+                                                </Grid>
 
 
-                                    </Paper>
+                                            </Paper>
 
-                                </Slide>
-                            </Grid>
-                        </Card>
+                                        </Slide>
+                                    </Grid>
+                                </Card>
+                            )}
                     </Grid>
                 </Grid>
             </Grid>

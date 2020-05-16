@@ -13,9 +13,11 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
 import HomeIcon from '@material-ui/icons/Home';
 import VideoLibraryIcon from '@material-ui/icons/VideoLibrary';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import InputIcon from '@material-ui/icons/Input';
 import ContactSupportIcon from '@material-ui/icons/ContactSupport';
 import VideoCallIcon from '@material-ui/icons/VideoCall';
-
+import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 import { handleLogout } from '../../utils/auth'
 
 const drawerWidth = 240;
@@ -176,6 +178,26 @@ function Header({ user }) {
                                 <Link href="/" passHref><a className={classes.link}>Home</a></Link>
                             </ListItemText>
                         </ListItem>
+                        {!user && (
+                            <>
+                                <ListItem button>
+                                    <ListItemIcon style={{ color: 'white' }}>
+                                        <Link href="/login"><InputIcon /></Link>
+                                    </ListItemIcon>
+                                    <ListItemText>
+                                        <Link href="/login" passHref><a className={classes.link}>Login</a></Link>
+                                    </ListItemText>
+                                </ListItem>
+                                <ListItem button>
+                                    <ListItemIcon style={{ color: 'white' }}>
+                                        <Link href="/register"><AssignmentTurnedInIcon /></Link>
+                                    </ListItemIcon>
+                                    <ListItemText>
+                                        <Link href="/register" passHref><a className={classes.link}>Register</a></Link>
+                                    </ListItemText>
+                                </ListItem>
+                            </>
+                        )}
 
                         {user && (
                             <>
@@ -194,6 +216,14 @@ function Header({ user }) {
                                     </ListItemIcon>
                                     <ListItemText>
                                         <Link href="/addVideo" passHref><a className={classes.link}>Add Video</a></Link>
+                                    </ListItemText>
+                                </ListItem>
+                                <ListItem button>
+                                    <ListItemIcon style={{ color: 'white' }} onClick={handleLogout}>
+                                        <Link href="/addVideo"><ExitToAppIcon /></Link>
+                                    </ListItemIcon>
+                                    <ListItemText onClick={handleLogout}>
+                                        Logout
                                     </ListItemText>
                                 </ListItem>
                             </>

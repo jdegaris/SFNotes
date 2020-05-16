@@ -58,7 +58,6 @@ function CategoryList({ flashcards, categories }) {
 CategoryList.getInitialProps = async () => {
     // fetch data
     const url = `${baseUrl}/api/flashcards`
-    console.log(baseUrl);
     const response = await axios.get(url)
     // return response data as an object
     return { flashcards: response.data }

@@ -19,7 +19,6 @@ function Home({ }) {
       />
       <h1>Training Videos</h1>
       <VideoList categories={categories} />
-      <h1>Training Links</h1>
 
     </div>
   );

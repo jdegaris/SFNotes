@@ -50,7 +50,6 @@ export default function addFlashcard() {
             const url = `${baseUrl}/api/flashcard`
             const { question, answer, category } = flashcard
             const payload = { question, answer, category }
-            console.log(payload);
             const token = cookie.get('token')
             const headers = { headers: { Authorization: token } }
             const newFlashcard = await axios.post(url, payload, headers)
